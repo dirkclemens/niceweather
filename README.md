@@ -1,4 +1,7 @@
 # Nice Weather
+
+iOS Swift App
+
 Demo App for iOS with implementation of OpenWeatherAPI and LocationManager created using https://chat.openai.com    
 Tried to use the MVVM Model View ViewModel pattern, lots of room for improvements - still work in progress    
 
