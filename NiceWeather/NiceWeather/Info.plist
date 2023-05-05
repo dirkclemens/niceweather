@@ -8,7 +8,7 @@
 	<string>NiceWeather requires user’s location for better user experience.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>NiceWeather requires user’s location for better user experience.</string>
-	<key>Font provided by application</key>
+	<key>Fonts provided by application</key>
 	<array>
 		<string>VarelaRound-Regular.ttf</string>
 		<string>Quicksand-Regular.ttf</string>
