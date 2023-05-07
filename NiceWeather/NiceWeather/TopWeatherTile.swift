@@ -23,25 +23,34 @@ struct TopWeatherTile: View {
             
             GeometryReader{ g in
                 HStack() {
-                    VStack(alignment: .center, spacing: 10) {
-                        Text("\(localCity)")
-                            .font(.custom("Quicksand-Light", size: 30))
+                    VStack(alignment: .center, spacing: 2) {
                         HStack {
                             Text("Stand:").font(.footnote)
-                            Text("\(weatherViewModel.getTimeFromUnixtime(current.dt, timezone: response.timezone))")
+                            Text("\(weatherViewModel.getCurrentOWApiTime())")
                                 .font(.footnote)
                             Spacer()
-                            Text("\(weatherViewModel.getDateFromUnixtime(current.dt, timezone: response.timezone))")
+                            Text("\(weatherViewModel.getCurrentOWApiDate())")
                                 .font(.footnote)
                         }
-                        .onAppear(){
-                            locationManager.getCityNameFromLocation(latitude: locationManager.getLatitude(), longitude: locationManager.getLongitude()
-                            ) { city in
-                                if let city = city {
-                                    localCity = city
-                                }
-                            }
+                        Spacer().frame(height: 5)
+                        //Text("\(locationManager.getLocationName())")
+                        if let currentCity = locationManager.currentCity {
+                            Text("\(currentCity)")
+                                .font(.custom("VarelaRound-Regular", size: 30))
                         }
+                        if let currentLocation = locationManager.currentLocation {
+                            if let address = locationManager.currentAddress {
+                                Text(address)
+                                    .font(.custom("VarelaRound-Regular", size: 12))
+                            } else {
+                                Text("Loading address...")
+                                    .font(.custom("VarelaRound-Regular", size: 12))
+                            }
+                        } else {
+                            Text("Loading location...")
+                                .font(.custom("VarelaRound-Regular", size: 12))
+                        }
+                        Spacer().frame(height: 5)
                         HStack {
                             ZStack(){
                                 AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(current.weather[0].icon)@2x.png"), content: { image in
@@ -55,7 +64,7 @@ struct TopWeatherTile: View {
                             .cornerRadius(10)
                             Spacer()
                             Text("\(current.temp.noDec)°")
-                                .font(.custom("Quicksand-Bold", size: 80))
+                                .font(.custom("VarelaRound-Regular", size: 80))
                                 .bold()
                                 .foregroundColor(.yellow)
                                 .lineLimit(1)
@@ -77,7 +86,7 @@ struct TopWeatherTile: View {
                                 Text("\(weatherViewModel.degreesToWindDirection(degrees: Double(current.wind_deg)))").font(.footnote)
                             }
                         }
-                        Divider()
+                        Divider().frame(height: 10)
                         HStack {
                             Text("\(current.weather[0].description)").font(.footnote)
                             Spacer()
@@ -98,6 +107,24 @@ struct TopWeatherTile: View {
                 .cornerRadius(8)
                 .padding(10)
                 .modifier(customFontModifier())
+            }
+            .onAppear(){
+//                locationManager.requestLocation()
+//                locationManager.getCityNameFromLocation() { city in
+//                    if let city = city {
+//                        localCity = city
+//                        print("city: \(city)")
+//                    }
+//                }
+            }
+            .onTapGesture {
+                locationManager.requestLocation()
+//                locationManager.getCityNameFromLocation() { city in
+//                    if let city = city {
+//                        localCity = city
+//                        print("city: \(city)")
+//                    }
+//                }
             }
         }
     }

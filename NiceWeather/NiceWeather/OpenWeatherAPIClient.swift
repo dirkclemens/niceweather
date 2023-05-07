@@ -129,7 +129,7 @@ class OpenWeatherAPIClient {
         let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&lang=de&units=metric&appid=\(apiKey)"//&exclude=minutely,daily"
         
         guard let url = URL(string: urlString) else {
-            completion(.failure("invalidURL" as! Error))
+            completion(.failure("invalid URL" as! Error))
             return
         }
         
@@ -140,12 +140,12 @@ class OpenWeatherAPIClient {
             }
             
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                completion(.failure("invalidResponse" as! Error))
+                completion(.failure("invalid Response" as! Error))
                 return
             }
             
             guard let data = data else {
-                completion(.failure("noData" as! Error))
+                completion(.failure("no Data" as! Error))
                 return
             }
             

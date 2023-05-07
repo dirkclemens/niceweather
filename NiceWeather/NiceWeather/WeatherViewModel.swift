@@ -40,7 +40,13 @@ public class WeatherViewModel: ObservableObject {
             }
         }
     }
-    
+
+    func getCurrentOWApiTime() -> String {
+        let dt = self.items.first?.current.dt ?? 0
+        let tz = self.items.first?.timezone ?? "Europe/Berlin"
+        return getTimeFromUnixtime(dt, timezone: tz)
+    }
+
     func getTimeFromUnixtime(_ unixtime: Int, timezone: String) -> String {
         let date = Date(timeIntervalSince1970: Double(unixtime))
         let formatter = DateFormatter()
@@ -50,7 +56,13 @@ public class WeatherViewModel: ObservableObject {
         var formattedDate:String {formatter.string(from: date)}
         return formattedDate
     }
-    
+
+    func getCurrentOWApiDate() -> String {
+        let dt = self.items.first?.current.dt ?? 0
+        let tz = self.items.first?.timezone ?? "Europe/Berlin"
+        return getDateFromUnixtime(dt, timezone: tz)
+    }
+
     // https://nshipster.com/formatter/
     func getDateFromUnixtime(_ unixtime: Int, timezone: String) -> String {
         let date = Date(timeIntervalSince1970: Double(unixtime))

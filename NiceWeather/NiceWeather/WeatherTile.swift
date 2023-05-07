@@ -24,7 +24,7 @@ struct WeatherTile: View {
                 HStack(alignment: .center) {
                     VStack(alignment: .center, spacing: 5) {
                         Text("\(weatherViewModel.getTimeFromUnixtime(element.dt, timezone: response.timezone))")
-                            .font(.custom("Quicksand-Light", size: 16))
+                            .font(.custom("VarelaRound-Regular", size: 16))
                         Spacer().frame(height: 1.0)
                         ZStack(){
                             AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(element.weather[0].icon).png"), content: { image in image.fixedSize()
@@ -36,7 +36,7 @@ struct WeatherTile: View {
                         .cornerRadius(6)
                         Spacer().frame(height: 1.0)
                         Text("\(element.temp.celsius0)")
-                            .font(.custom("Quicksand-Light", size: 16))
+                            .font(.custom("VarelaRound-Regular", size: 16))
 //                        HStack {
 //                            Image(systemName: "humidity").font(.footnote)
 //                            Text("\(Double(element.humidity).noDec)%")
@@ -47,9 +47,8 @@ struct WeatherTile: View {
 //                        }
                         Text("\(element.weather[0].description)")
                             .lineLimit(1)
-                            .font(.custom("Quicksand-Light", size: 10))
+                            .font(.custom("VarelaRound-Regular", size: 10))
                     }
-                    .shadow(radius: 20)
                 }
                 .frame(maxWidth: .infinity)
                 .frame(minWidth: g.size.width * 0.24)
